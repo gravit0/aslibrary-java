@@ -5,7 +5,6 @@
  */
 package aslibrary.formats;
 
-import aslibrary.util.BinaryHelper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,52 +27,54 @@ public class FastBinaryFormatter1 {
      * @return
      * @throws IOException
      */
-    public byte[] encode(byte[][] data) throws IOException
+    public static byte[] encode(byte[][] data) throws IllegalArgumentException
     {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ByteArrayOutputStream headout = new ByteArrayOutputStream();
-        ByteArrayOutputStream bytesout = new ByteArrayOutputStream();
-        for(byte[] v : data)
-        {
-            headout.write(v.length);
-            bytesout.write(v);
+        if (data.length > 255) throw new IllegalArgumentException("length > 255");
+            int datalen = 0;
+            for (byte[] v : data) {
+                datalen+= v.length;
+            }
+            ByteArrayOutputStream out = new ByteArrayOutputStream(1+datalen+data.length);
+            out.write(data.length);
+            ByteArrayOutputStream bytesout = new ByteArrayOutputStream(datalen);
+            for (byte[] v : data) {
+                if (v.length > 255) throw new IllegalArgumentException("length > 255");
+                out.write(v.length);
+                try {
+                    bytesout.write(v);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        try {
+            out.write(bytesout.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        byte[] head = headout.toByteArray();
-        byte[] bytes = bytesout.toByteArray();
-        out.write(head.length);
-        out.write(head);
-        out.write(bytes);
-        return out.toByteArray();
+        byte[] arr =  out.toByteArray();
+            return arr;
     }
 
     /**
      *
      * @param orig
      * @return
-     * @throws IOException
      */
-    public Object[] decode(byte[] orig) throws IOException
-    {
-        if(orig.length<BYTES*2) throw new IllegalArgumentException("length < 2");
-        ArrayList<byte[]> arr = new ArrayList<>();
-        byte[] head;
-        byte[] bytes;
-        int headsize = orig[0];
-        head = Arrays.copyOfRange(orig, BYTES, headsize+BYTES);
-        if(head.length<BYTES) throw new IllegalArgumentException("head is empry | head invalid");
-        int bytes_starter = headsize+BYTES;
-        bytes = Arrays.copyOfRange(orig, bytes_starter, orig.length);
-        if(bytes.length == 0) throw new IllegalArgumentException("data is empry");
-        int elems_col = headsize / BYTES;
-        int bytesiterator = 0;
-        for(int i = 0;i<elems_col;i++)
-        {
-            byte[] len_byte = Arrays.copyOfRange(head, i*BYTES, i*BYTES+BYTES);
-            int len = len_byte[0];
-            byte[] data = Arrays.copyOfRange(bytes, bytesiterator, bytesiterator+len);
-            bytesiterator += len;
-            arr.add(data);
-        }
-        return arr.toArray();
+    public static Object[] decode(byte[] orig) throws IllegalArgumentException {
+        if (orig.length < BYTES * 2) throw new IllegalArgumentException("length < 2");
+            ArrayList<byte[]> arr = new ArrayList<>();
+            int headsize = Byte.toUnsignedInt(orig[0]);
+            if (headsize <= 0) throw new IllegalArgumentException("head is empry | head invalid");
+            int bytes_starter = headsize + BYTES;
+            if (orig.length - bytes_starter <= 0) throw new IllegalArgumentException("data is empry");
+            int elm_col = headsize / BYTES;
+            int bytesiterator = bytes_starter;
+            for (int i = 0; i < elm_col; i++) {
+                int len = Byte.toUnsignedInt(orig[1+ i*BYTES]);
+                byte[] data = Arrays.copyOfRange(orig, bytesiterator, bytesiterator + len);
+                bytesiterator += len;
+                arr.add(data);
+            }
+            return arr.toArray();
     }
 }
