@@ -41,7 +41,7 @@ public class BinaryHelper {
     /**
      *
      * @param buff
-     * @return
+     * @return byte[]
      */
     public static int byteArrayToInt(byte[] buff) {
         return byteArrayToInt(buff, 0, Integer.BYTES);
@@ -52,12 +52,12 @@ public class BinaryHelper {
      *
      * @param buff
      * @param start_byte
-     * @param stop_byte
-     * @return
+     * @param len
+     * @return int
      */
-    public static int byteArrayToInt(byte[] buff, int start_byte, int stop_byte) {
+    public static int byteArrayToInt(byte[] buff, int start_byte, int len) {
         ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
-        buffer.put(buff, start_byte, stop_byte);
+        buffer.put(buff, start_byte, len);
         buffer.flip();//need flip 
         return buffer.getInt();
     }

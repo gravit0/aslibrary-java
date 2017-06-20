@@ -52,7 +52,7 @@ public class FastBinaryFormatter1 {
             e.printStackTrace();
         }
         byte[] arr =  out.toByteArray();
-            return arr;
+        return arr;
     }
 
     /**
@@ -61,7 +61,7 @@ public class FastBinaryFormatter1 {
      * @return
      */
     public static Object[] decode(byte[] orig) throws IllegalArgumentException {
-        if (orig.length < BYTES * 2) throw new IllegalArgumentException("length < 2");
+        if (orig.length < BYTES) throw new IllegalArgumentException("length < 1");
             ArrayList<byte[]> arr = new ArrayList<>();
             int headsize = Byte.toUnsignedInt(orig[0]);
             if (headsize <= 0) throw new IllegalArgumentException("head is empry | head invalid");
