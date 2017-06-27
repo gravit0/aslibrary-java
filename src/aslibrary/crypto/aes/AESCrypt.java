@@ -21,14 +21,14 @@ public class AESCrypt {
     public static byte[] encrypt(String seed, byte[] cleartext) throws Exception {
         byte[] rawKey = getRawKey(seed.getBytes());
         byte[] result = encrypt(rawKey, cleartext);
-        return BinaryTextHelper.BytetoHex(result);
+        return BinaryTextHelper.ByteToHex(result);
     }
     public static byte[] encrypt(String seed, String cleartext) throws Exception {
         return encrypt(seed,cleartext.getBytes());
     }
     public static byte[] decrypt(String seed, String encrypted) throws Exception {
         byte[] rawKey = getRawKey(seed.getBytes());
-        byte[] enc = BinaryTextHelper.HextoByte(encrypted);
+        byte[] enc = BinaryTextHelper.HexToByte(encrypted);
         byte[] result = decrypt(rawKey, enc);
         return result;
     }

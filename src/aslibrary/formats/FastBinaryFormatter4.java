@@ -36,17 +36,17 @@ public class FastBinaryFormatter4 {
         }
         ByteArrayOutputStream out = new ByteArrayOutputStream(1+datalen+data.length);
         out.write(BinaryHelper.IntToByteArray(data.length * BYTES));
-        ByteArrayOutputStream bytesout = new ByteArrayOutputStream(datalen);
+        ByteArrayOutputStream bytesOut = new ByteArrayOutputStream(datalen);
         for (byte[] v : data) {
             out.write(BinaryHelper.IntToByteArray(v.length));
             try {
-                bytesout.write(v);
+                bytesOut.write(v);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         try {
-            out.write(bytesout.toByteArray());
+            out.write(bytesOut.toByteArray());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,16 +64,16 @@ public class FastBinaryFormatter4 {
     {
         if(orig.length<BYTES) throw new IllegalArgumentException("length < 4");
         ArrayList<byte[]> arr = new ArrayList<>();
-        int headsize = (int) BinaryHelper.byteArrayToInt(orig);
-        if (headsize <= 0) throw new IllegalArgumentException("head is empry | head invalid");
-        int bytes_starter = headsize + BYTES;
+        int headSize = BinaryHelper.byteArrayToInt(orig);
+        if (headSize <= 0) throw new IllegalArgumentException("head is empry | head invalid");
+        int bytes_starter = headSize + BYTES;
         if (orig.length - bytes_starter <= 0) throw new IllegalArgumentException("data is empry");
-        int elm_col = headsize / BYTES;
-        int bytesiterator = bytes_starter;
+        int elm_col = headSize / BYTES;
+        int bytesIterator = bytes_starter;
         for (int i = 0; i < elm_col; i++) {
-            int len = (int) BinaryHelper.byteArrayToInt(orig,BYTES+i*BYTES,4);
-            byte[] data = Arrays.copyOfRange(orig, bytesiterator, bytesiterator + len);
-            bytesiterator += len;
+            int len = BinaryHelper.byteArrayToInt(orig,BYTES+i*BYTES,4);
+            byte[] data = Arrays.copyOfRange(orig, bytesIterator, bytesIterator + len);
+            bytesIterator += len;
             arr.add(data);
         }
         return arr.toArray();

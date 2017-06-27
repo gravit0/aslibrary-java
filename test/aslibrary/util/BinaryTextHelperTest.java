@@ -56,37 +56,37 @@ public class BinaryTextHelperTest {
      */
     @Test
     public void testHextoByte2() {
-        System.out.println("HextoByte byte[]");
+        System.out.println("HexToByte byte[]");
         byte[] hexString = {'0','F','0','F'};
         byte[] expResult = {15,15};
-        byte[] result = BinaryTextHelper.HextoByte(hexString);
+        byte[] result = BinaryTextHelper.HexToByte(hexString);
         System.out.println(Arrays.toString(result));
         assertArrayEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
-     * Test of HextoByte method, of class BinaryTextHelper.
+     * Test of HexToByte method, of class BinaryTextHelper.
      */
     @Test
     public void testHextoByte() {
-        System.out.println("HextoByte String");
+        System.out.println("HexToByte String");
         String hexString = "0F0F";
         byte[] expResult = {15, 15};
-        byte[] result = BinaryTextHelper.HextoByte(hexString);
+        byte[] result = BinaryTextHelper.HexToByte(hexString);
         assertArrayEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
-     * Test of BytetoHex method, of class BinaryTextHelper.
+     * Test of ByteToHex method, of class BinaryTextHelper.
      */
     @Test
     public void testBytetoHex() {
-        System.out.println("BytetoHex");
+        System.out.println("ByteToHex");
         byte[] buf = {15, 15};
         byte[] expResult = {'0','F','0','F'};
-        byte[] result = BinaryTextHelper.BytetoHex(buf);
+        byte[] result = BinaryTextHelper.ByteToHex(buf);
         assertArrayEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }

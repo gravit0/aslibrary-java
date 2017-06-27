@@ -41,20 +41,6 @@ public class License {
         if(!secure.validation()) return null;
         License newlic = new License();
         byte[] aes = AESCrypt.decrypt(secure.getEncryptKey(), lic);
-        /*String[] d = aes.split("-");
-        if(d.length != 4) throw new Exception("Unvalid license");
-        newlic.date_issue = Long.parseLong( d[0] );
-        newlic.name = d[1];
-        newlic.type = Integer.parseInt(d[2]);
-        newlic.date_issue = Long.parseLong( d[3] );
-        LicenseBinaryFormatter fmt = new LicenseBinaryFormatter(aes.getBytes());
-        System.out.println(Arrays.toString(aes.getBytes()));
-        System.out.println(Arrays.toString(fmt.headbytes));
-        System.out.println(Arrays.toString(fmt.bytes));
-        newlic.name = new String(fmt.get(0));
-        newlic.type = BinaryHelper.byteArrayToLong(fmt.get(1));
-        newlic.date_issue = BinaryHelper.byteArrayToLong(fmt.get(2));
-        newlic.date_end = BinaryHelper.byteArrayToLong(fmt.get(3,5));*/
         Object[] arr = FastBinaryFormatter4.decode(aes);
         newlic.name = new String((byte[])arr[0]);
         newlic.type = BinaryHelper.byteArrayToLong((byte[])arr[1]);
@@ -75,11 +61,6 @@ public class License {
     {
         if(!secure.validation()) return;
         String result;
-        /*LicenseBinaryFormatter fmt = new LicenseBinaryFormatter();
-        fmt.add(name.getBytes());
-        fmt.add(type);
-        fmt.add(date_issue);
-        fmt.add(date_end);*/
         byte[][] arr = {name.getBytes(),
             BinaryHelper.longToByteArray(type),
             BinaryHelper.longToByteArray(date_issue),

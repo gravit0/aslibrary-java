@@ -36,18 +36,18 @@ public class FastBinaryFormatter1 {
             }
             ByteArrayOutputStream out = new ByteArrayOutputStream(1+datalen+data.length);
             out.write(data.length);
-            ByteArrayOutputStream bytesout = new ByteArrayOutputStream(datalen);
+            ByteArrayOutputStream bytesOut = new ByteArrayOutputStream(datalen);
             for (byte[] v : data) {
                 if (v.length > 255) throw new IllegalArgumentException("length > 255");
                 out.write(v.length);
                 try {
-                    bytesout.write(v);
+                    bytesOut.write(v);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         try {
-            out.write(bytesout.toByteArray());
+            out.write(bytesOut.toByteArray());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,16 +63,16 @@ public class FastBinaryFormatter1 {
     public static Object[] decode(byte[] orig) throws IllegalArgumentException {
         if (orig.length < BYTES) throw new IllegalArgumentException("length < 1");
             ArrayList<byte[]> arr = new ArrayList<>();
-            int headsize = Byte.toUnsignedInt(orig[0]);
-            if (headsize <= 0) throw new IllegalArgumentException("head is empry | head invalid");
-            int bytes_starter = headsize + BYTES;
-            if (orig.length - bytes_starter <= 0) throw new IllegalArgumentException("data is empry");
-            int elm_col = headsize / BYTES;
-            int bytesiterator = bytes_starter;
+            int headSize = Byte.toUnsignedInt(orig[0]);
+            if (headSize <= 0) throw new IllegalArgumentException("head is empty | head invalid");
+            int bytes_starter = headSize + BYTES;
+            if (orig.length - bytes_starter <= 0) throw new IllegalArgumentException("data is empty");
+            int elm_col = headSize / BYTES;
+            int bytesIterator = bytes_starter;
             for (int i = 0; i < elm_col; i++) {
                 int len = Byte.toUnsignedInt(orig[1+ i*BYTES]);
-                byte[] data = Arrays.copyOfRange(orig, bytesiterator, bytesiterator + len);
-                bytesiterator += len;
+                byte[] data = Arrays.copyOfRange(orig, bytesIterator, bytesIterator + len);
+                bytesIterator += len;
                 arr.add(data);
             }
             return arr.toArray();

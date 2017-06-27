@@ -26,8 +26,8 @@ public class BinaryTextHelper {
             return new byte[]{'-', '2', '1', '4', '7', '4', '8', '3', '6', '4', '8'};
         }
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        boolean otric = val < 0;
-        if (otric) {
+        boolean invert = val < 0;
+        if (invert) {
             val = -val;
         }
         int del = val; //Главный делитель
@@ -36,17 +36,10 @@ public class BinaryTextHelper {
             del = del / 10;
             out.write(NUMBERS[x]);
         }
-        if (otric) {
+        if (invert) {
             out.write('-');
         }
-        byte[] reverte = out.toByteArray();
-        int center = reverte.length / 2;
-        for (int k = center; k >= 0; k--) {
-            byte tmp = reverte[k];
-            reverte[k] = reverte[reverte.length - k - 1];
-            reverte[reverte.length - k - 1] = tmp;
-        }
-        return reverte;
+        return BinaryHelper.invert(out.toByteArray());
     }
 
     /**
@@ -54,7 +47,7 @@ public class BinaryTextHelper {
      * @param hexString
      * @return
      */
-    public static byte[] HextoByte(byte[] hexString) {
+    public static byte[] HexToByte(byte[] hexString) {
         int len = hexString.length / 2;
         byte[] result = new byte[len];
         for (int i = 0; i < len; i++) {
@@ -77,7 +70,7 @@ public class BinaryTextHelper {
      * @param hexString
      * @return
      */
-    public static byte[] HextoByte(String hexString) {
+    public static byte[] HexToByte(String hexString) {
         int len = hexString.length() / 2;
         byte[] result = new byte[len];
         for (int i = 0; i < len; i++) {
@@ -91,7 +84,7 @@ public class BinaryTextHelper {
      * @param buf
      * @return
      */
-    public static byte[] BytetoHex(byte[] buf) {
+    public static byte[] ByteToHex(byte[] buf) {
         if (buf == null)  throw new NullPointerException();
         ByteArrayOutputStream result = new ByteArrayOutputStream(2 * buf.length);
         for (int i = 0; i < buf.length; i++) {

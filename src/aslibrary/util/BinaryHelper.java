@@ -37,7 +37,17 @@ public class BinaryHelper {
         buffer.flip();//need flip 
         return buffer.getLong();
     }
-
+    public static byte[] invert(byte[] buff)
+    {
+        int center = buff.length / 2;
+        byte tmp;
+        for (int k = center; k >= 0; k--) {
+            tmp = buff[k];
+            buff[k] = buff[buff.length - k - 1];
+            buff[buff.length - k - 1] = tmp;
+        }
+        return buff;
+    }
     /**
      *
      * @param buff
