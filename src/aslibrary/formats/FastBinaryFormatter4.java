@@ -6,15 +6,16 @@
 package aslibrary.formats;
 
 import aslibrary.util.BinaryHelper;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  *
  * @author gravit
  */
+@SuppressWarnings("JavaDoc")
 public class FastBinaryFormatter4 {
 
     /**
@@ -50,8 +51,7 @@ public class FastBinaryFormatter4 {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        byte[] arr =  out.toByteArray();
-        return arr;
+        return out.toByteArray();
     }
 
     /**
@@ -60,22 +60,24 @@ public class FastBinaryFormatter4 {
      * @return
      * @throws IOException
      */
-    public static Object[] decode(byte[] orig) throws IOException
+    public static byte[][] decode(byte[] orig)
     {
         if(orig.length<BYTES) throw new IllegalArgumentException("length < 4");
-        ArrayList<byte[]> arr = new ArrayList<>();
         int headSize = BinaryHelper.byteArrayToInt(orig);
+        int arrIterator = 0;
         if (headSize <= 0) throw new IllegalArgumentException("head is empry | head invalid");
         int bytes_starter = headSize + BYTES;
         if (orig.length - bytes_starter <= 0) throw new IllegalArgumentException("data is empry");
         int elm_col = headSize / BYTES;
+        byte[][] arr = new byte[elm_col][];
         int bytesIterator = bytes_starter;
         for (int i = 0; i < elm_col; i++) {
             int len = BinaryHelper.byteArrayToInt(orig,BYTES+i*BYTES,4);
             byte[] data = Arrays.copyOfRange(orig, bytesIterator, bytesIterator + len);
             bytesIterator += len;
-            arr.add(data);
+            arr[arrIterator] = data;
+            arrIterator++;
         }
-        return arr.toArray();
+        return arr;
     }
 }

@@ -5,12 +5,9 @@
  */
 package aslibrary.formats;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.*;
+
+import static org.junit.Assert.assertArrayEquals;
 
 /**
  *
@@ -44,12 +41,9 @@ public class FastBinaryFormatterTest {
     public void testEncode() throws Exception {
         System.out.println("encode");
         byte[][] data = {"Hello".getBytes(),"Hello2".getBytes()};
-        FastBinaryFormatter4 instance = new FastBinaryFormatter4();
         byte[] expResult = {0, 0, 0, 8, 0, 0, 0, 5, 0, 0, 0, 6, 72, 101, 108, 108, 111, 72, 101, 108, 108, 111, 50};
-        byte[] result = instance.encode(data);
+        byte[] result = FastBinaryFormatter4.encode(data);
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -59,12 +53,12 @@ public class FastBinaryFormatterTest {
     public void testDecode() throws Exception {
         System.out.println("decode");
         byte[] orig = {0, 0, 0, 8, 0, 0, 0, 5, 0, 0, 0, 6, 72, 101, 108, 108, 111, 72, 101, 108, 108, 111, 50};
-        FastBinaryFormatter4 instance = new FastBinaryFormatter4();
-        Object[] expResult = {"Hello".getBytes(),"Hello2".getBytes()};
-        Object[] result = instance.decode(orig);
+        byte[][] expResult = {"Hello".getBytes(),"Hello2".getBytes()};
+        byte[][] result = FastBinaryFormatter4.decode(orig);
+        for (byte[] v:result)
+            System.out.write(v);
+
         assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
     
 }

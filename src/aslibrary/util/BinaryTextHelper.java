@@ -25,7 +25,7 @@ public class BinaryTextHelper {
         if (val == Integer.MIN_VALUE) {
             return new byte[]{'-', '2', '1', '4', '7', '4', '8', '3', '6', '4', '8'};
         }
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ByteArrayOutputStream out = new ByteArrayOutputStream(11);
         boolean invert = val < 0;
         if (invert) {
             val = -val;
@@ -87,8 +87,8 @@ public class BinaryTextHelper {
     public static byte[] ByteToHex(byte[] buf) {
         if (buf == null)  throw new NullPointerException();
         ByteArrayOutputStream result = new ByteArrayOutputStream(2 * buf.length);
-        for (int i = 0; i < buf.length; i++) {
-            appendHex(result, buf[i]);
+        for (byte aBuf : buf) {
+            appendHex(result, aBuf);
         }
         return result.toByteArray();
     }

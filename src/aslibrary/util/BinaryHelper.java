@@ -12,6 +12,7 @@ import java.nio.ByteBuffer;
  *
  * @author gravit
  */
+@SuppressWarnings("JavaDoc")
 public class BinaryHelper {
 
     /**
@@ -37,6 +38,11 @@ public class BinaryHelper {
         buffer.flip();//need flip 
         return buffer.getLong();
     }
+
+    /**
+     * @param buff
+     * @return
+     */
     public static byte[] invert(byte[] buff)
     {
         int center = buff.length / 2;
@@ -47,6 +53,21 @@ public class BinaryHelper {
             buff[buff.length - k - 1] = tmp;
         }
         return buff;
+    }
+
+    /**
+     * @param arr1
+     * @param arr2
+     * @param start
+     * @return
+     */
+    public static void concat(byte[] arr1, byte[] arr2, int start)
+    {
+        int size = arr2.length;
+        for(int i=start;i<size;i++)
+        {
+            arr1[i] = arr2[i-start];
+        }
     }
     /**
      *
@@ -80,7 +101,7 @@ public class BinaryHelper {
      * @return
      * @throws IOException
      */
-    public static byte[] longToByteArray(long value) throws IOException {
+    public static byte[] longToByteArray(long value) {
 
         return new byte[]{
             (byte) (value >>> 56),
@@ -100,7 +121,7 @@ public class BinaryHelper {
      * @return
      * @throws IOException
      */
-    public static byte[] IntToByteArray(int value) throws IOException {
+    public static byte[] IntToByteArray(int value) {
 
         return new byte[]{
             (byte) (value >>> 24),

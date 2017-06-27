@@ -5,15 +5,17 @@
  */
 package aslibrary.formats;
 
+import aslibrary.util.BinaryHelper;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  *
  * @author gravit
  */
+@SuppressWarnings("JavaDoc")
 public class FastBinaryFormatter1 {
 
     /**
@@ -27,43 +29,39 @@ public class FastBinaryFormatter1 {
      * @return
      * @throws IOException
      */
-    public static byte[] encode(byte[][] data) throws IllegalArgumentException
-    {
+    public static byte[] encode(byte[][] data) throws IllegalArgumentException {
         if (data.length > 255) throw new IllegalArgumentException("length > 255");
-            int datalen = 0;
-            for (byte[] v : data) {
-                datalen+= v.length;
-            }
-            ByteArrayOutputStream out = new ByteArrayOutputStream(1+datalen+data.length);
-            out.write(data.length);
-            ByteArrayOutputStream bytesOut = new ByteArrayOutputStream(datalen);
-            for (byte[] v : data) {
-                if (v.length > 255) throw new IllegalArgumentException("length > 255");
-                out.write(v.length);
-                try {
-                    bytesOut.write(v);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+        int datalen = 0;
+        for (byte[] v : data) {
+            datalen += v.length;
+        }
+        ByteArrayOutputStream out = new ByteArrayOutputStream(1 + datalen + data.length);
+        out.write(data.length);
+        byte[] bytes =  new byte[datalen+1];
+        int bytesIterator=0;
+        for (byte[] v : data) {
+            if (v.length > 255) throw new IllegalArgumentException("length > 255");
+            out.write(v.length);
+            BinaryHelper.concat(bytes,v,bytesIterator);
+            bytesIterator += v.length;
+        }
         try {
-            out.write(bytesOut.toByteArray());
+            out.write(bytes);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        byte[] arr =  out.toByteArray();
-        return arr;
+        return out.toByteArray();
     }
-
     /**
      *
      * @param orig
      * @return
      */
-    public static Object[] decode(byte[] orig) throws IllegalArgumentException {
+    public static byte[][] decode(byte[] orig) throws IllegalArgumentException {
         if (orig.length < BYTES) throw new IllegalArgumentException("length < 1");
-            ArrayList<byte[]> arr = new ArrayList<>();
             int headSize = Byte.toUnsignedInt(orig[0]);
+            byte[][] arr = new byte[headSize][];
+            int arrIterator = 0;
             if (headSize <= 0) throw new IllegalArgumentException("head is empty | head invalid");
             int bytes_starter = headSize + BYTES;
             if (orig.length - bytes_starter <= 0) throw new IllegalArgumentException("data is empty");
@@ -73,8 +71,9 @@ public class FastBinaryFormatter1 {
                 int len = Byte.toUnsignedInt(orig[1+ i*BYTES]);
                 byte[] data = Arrays.copyOfRange(orig, bytesIterator, bytesIterator + len);
                 bytesIterator += len;
-                arr.add(data);
+                arr[arrIterator] = data;
+                arrIterator++;
             }
-            return arr.toArray();
+            return arr;
     }
 }
