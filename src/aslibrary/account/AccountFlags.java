@@ -6,14 +6,13 @@
 package aslibrary.account;
 
 /**
- *
  * @author gravit
  */
 public final class AccountFlags {
-    private AccountFlags()
-    {
-        
+    private AccountFlags() {
+
     }
+
     public static final long SYSTEM = 1;
     public static final long HIDDEN = 1 << 1;
     public static final long DEVELOPER = 1 << 2;

@@ -6,24 +6,23 @@
 package aslibrary.license;
 
 /**
- *
  * @author gravit
  */
 public class LicenseException extends Exception {
     private String value;
     private String lic;
-    public LicenseException(String secs,String licen)
-    {
-        value=secs;
-        lic=licen;
+
+    public LicenseException(String secs, String licen) {
+        value = secs;
+        lic = licen;
     }
+
     @Override
-    public String getMessage()
-    {
+    public String getMessage() {
         return value;
     }
-    public String getProblemLicense()
-    {
+
+    public String getProblemLicense() {
         return lic;
     }
 }

@@ -6,10 +6,10 @@
 package aslibrary.license;
 
 /**
- *
  * @author gravit
  */
 public interface LicenseSecureInterface {
     boolean validation();
+
     String getEncryptKey();
 }

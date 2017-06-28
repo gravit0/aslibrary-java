@@ -6,13 +6,12 @@
 package aslibrary.account;
 
 /**
- *
  * @author gravit
  */
 public final class AccountPermissions {
-    private AccountPermissions()
-    {
+    private AccountPermissions() {
     }
+
     public static final long ADMIN = 1 << 2;
     public static final long SUPERUSER = 1 << 3;
 }

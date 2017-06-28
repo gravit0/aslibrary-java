@@ -9,15 +9,13 @@ import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
 /**
- *
  * @author gravit
  */
 public class BinaryTextHelper {
 
     public static final byte[] NUMBERS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-    
+
     /**
-     *
      * @param val
      * @return
      */
@@ -43,7 +41,6 @@ public class BinaryTextHelper {
     }
 
     /**
-     *
      * @param hexString
      * @return
      */
@@ -53,20 +50,19 @@ public class BinaryTextHelper {
         for (int i = 0; i < len; i++) {
             int r;
             byte[] tmp = Arrays.copyOfRange(hexString, 2 * i, 2 * i + 2);
-            int num1,num2;
-            if(tmp[0] < 'A') num1 = tmp[0] - NUMBERS[0];
+            int num1, num2;
+            if (tmp[0] < 'A') num1 = tmp[0] - NUMBERS[0];
             else num1 = tmp[0] - NUMBERS[10] + 10;
-            if(tmp[1] < 'A') num2 = tmp[1] - NUMBERS[0];
+            if (tmp[1] < 'A') num2 = tmp[1] - NUMBERS[0];
             else num2 = tmp[1] - NUMBERS[10] + 10;
             r = (num1 << 4);
             r = r | num2;
-            result[i] = (byte)r;
+            result[i] = (byte) r;
         }
         return result;
     }
 
     /**
-     *
      * @param hexString
      * @return
      */
@@ -80,12 +76,11 @@ public class BinaryTextHelper {
     }
 
     /**
-     *
      * @param buf
      * @return
      */
     public static byte[] ByteToHex(byte[] buf) {
-        if (buf == null)  throw new NullPointerException();
+        if (buf == null) throw new NullPointerException();
         ByteArrayOutputStream result = new ByteArrayOutputStream(2 * buf.length);
         for (byte aBuf : buf) {
             appendHex(result, aBuf);

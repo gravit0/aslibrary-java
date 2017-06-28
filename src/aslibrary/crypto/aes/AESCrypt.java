@@ -1,11 +1,12 @@
 package aslibrary.crypto.aes;
 
 import aslibrary.util.BinaryTextHelper;
-import java.security.SecureRandom;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.SecureRandom;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,7 +15,6 @@ import javax.crypto.spec.SecretKeySpec;
  */
 
 /**
- *
  * @author gravit
  */
 public class AESCrypt {
@@ -23,9 +23,11 @@ public class AESCrypt {
         byte[] result = encrypt(rawKey, cleartext);
         return BinaryTextHelper.ByteToHex(result);
     }
+
     public static byte[] encrypt(String seed, String cleartext) throws Exception {
-        return encrypt(seed,cleartext.getBytes());
+        return encrypt(seed, cleartext.getBytes());
     }
+
     public static byte[] decrypt(String seed, String encrypted) throws Exception {
         byte[] rawKey = getRawKey(seed.getBytes());
         byte[] enc = BinaryTextHelper.HexToByte(encrypted);

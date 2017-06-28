@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- *
  * @author gravit
  */
 @SuppressWarnings("JavaDoc")
@@ -24,18 +23,16 @@ public class FastBinaryFormatter4 {
     public static final byte BYTES = Integer.BYTES;
 
     /**
-     *
      * @param data
      * @return
      * @throws IOException
      */
-    public static byte[] encode(byte[][] data) throws IOException
-    {
+    public static byte[] encode(byte[][] data) throws IOException {
         int datalen = 0;
         for (byte[] v : data) {
-            datalen+= v.length;
+            datalen += v.length;
         }
-        ByteArrayOutputStream out = new ByteArrayOutputStream(1+datalen+data.length);
+        ByteArrayOutputStream out = new ByteArrayOutputStream(1 + datalen + data.length);
         out.write(BinaryHelper.IntToByteArray(data.length * BYTES));
         ByteArrayOutputStream bytesOut = new ByteArrayOutputStream(datalen);
         for (byte[] v : data) {
@@ -55,14 +52,12 @@ public class FastBinaryFormatter4 {
     }
 
     /**
-     *
      * @param orig
      * @return
      * @throws IOException
      */
-    public static byte[][] decode(byte[] orig)
-    {
-        if(orig.length<BYTES) throw new IllegalArgumentException("length < 4");
+    public static byte[][] decode(byte[] orig) {
+        if (orig.length < BYTES) throw new IllegalArgumentException("length < 4");
         int headSize = BinaryHelper.byteArrayToInt(orig);
         int arrIterator = 0;
         if (headSize <= 0) throw new IllegalArgumentException("head is empry | head invalid");
@@ -72,7 +67,7 @@ public class FastBinaryFormatter4 {
         byte[][] arr = new byte[elm_col][];
         int bytesIterator = bytes_starter;
         for (int i = 0; i < elm_col; i++) {
-            int len = BinaryHelper.byteArrayToInt(orig,BYTES+i*BYTES,4);
+            int len = BinaryHelper.byteArrayToInt(orig, BYTES + i * BYTES, 4);
             byte[] data = Arrays.copyOfRange(orig, bytesIterator, bytesIterator + len);
             bytesIterator += len;
             arr[arrIterator] = data;

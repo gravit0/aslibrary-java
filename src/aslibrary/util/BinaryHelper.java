@@ -9,14 +9,12 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 /**
- *
  * @author gravit
  */
 @SuppressWarnings("JavaDoc")
 public class BinaryHelper {
 
     /**
-     *
      * @param buff
      * @return
      */
@@ -26,7 +24,6 @@ public class BinaryHelper {
     //конвертация массива байтов в одиночный long
 
     /**
-     *
      * @param buff
      * @param start_byte
      * @param stop_byte
@@ -43,8 +40,7 @@ public class BinaryHelper {
      * @param buff
      * @return
      */
-    public static byte[] invert(byte[] buff)
-    {
+    public static byte[] invert(byte[] buff) {
         int center = buff.length / 2;
         byte tmp;
         for (int k = center; k >= 0; k--) {
@@ -61,16 +57,14 @@ public class BinaryHelper {
      * @param start
      * @return
      */
-    public static void concat(byte[] arr1, byte[] arr2, int start)
-    {
+    public static void concat(byte[] arr1, byte[] arr2, int start) {
         int size = arr2.length;
-        for(int i=start;i<size;i++)
-        {
-            arr1[i] = arr2[i-start];
+        for (int i = start; i < size; i++) {
+            arr1[i] = arr2[i - start];
         }
     }
+
     /**
-     *
      * @param buff
      * @return byte[]
      */
@@ -80,7 +74,6 @@ public class BinaryHelper {
     //конвертация массива байтов в одиночный long
 
     /**
-     *
      * @param buff
      * @param start_byte
      * @param len
@@ -96,7 +89,6 @@ public class BinaryHelper {
 //конвертация одиночного long'а в массив byte
 
     /**
-     *
      * @param value
      * @return
      * @throws IOException
@@ -104,19 +96,18 @@ public class BinaryHelper {
     public static byte[] longToByteArray(long value) {
 
         return new byte[]{
-            (byte) (value >>> 56),
-            (byte) (value >>> 48),
-            (byte) (value >>> 40),
-            (byte) (value >>> 32),
-            (byte) (value >>> 24),
-            (byte) (value >>> 16),
-            (byte) (value >>> 8),
-            (byte) value
+                (byte) (value >>> 56),
+                (byte) (value >>> 48),
+                (byte) (value >>> 40),
+                (byte) (value >>> 32),
+                (byte) (value >>> 24),
+                (byte) (value >>> 16),
+                (byte) (value >>> 8),
+                (byte) value
         };
     }
 
     /**
-     *
      * @param value
      * @return
      * @throws IOException
@@ -124,10 +115,10 @@ public class BinaryHelper {
     public static byte[] IntToByteArray(int value) {
 
         return new byte[]{
-            (byte) (value >>> 24),
-            (byte) (value >>> 16),
-            (byte) (value >>> 8),
-            (byte) value
+                (byte) (value >>> 24),
+                (byte) (value >>> 16),
+                (byte) (value >>> 8),
+                (byte) value
         };
     }
 }

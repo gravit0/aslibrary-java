@@ -6,7 +6,6 @@
 package aslibrary.account;
 
 /**
- *
  * @author gravit
  */
 public class Account {
@@ -14,28 +13,28 @@ public class Account {
     public String name;
     protected long permissions;
     protected long flags;
-    public void addPermission(long perm)
-    {
+
+    public void addPermission(long perm) {
         permissions = permissions | perm;
     }
-    public boolean isPermission(long perm)
-    {
+
+    public boolean isPermission(long perm) {
         return (permissions & perm) != 0;
     }
-    public void rmPermission(long perm)
-    {
+
+    public void rmPermission(long perm) {
         permissions = (permissions ^ perm);
     }
-    public void addFlag(long flag)
-    {
+
+    public void addFlag(long flag) {
         flags = flags | flag;
     }
-    public boolean isFlag(long flag)
-    {
+
+    public boolean isFlag(long flag) {
         return (flags & flag) != 0;
     }
-    public void rmFlag(long flag)
-    {
+
+    public void rmFlag(long flag) {
         flags = flags ^ flag;
     }
 }
