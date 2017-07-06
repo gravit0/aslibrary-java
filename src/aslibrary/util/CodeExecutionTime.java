@@ -1,5 +1,8 @@
 package aslibrary.util;
 
+import aslibrary.LogicException;
+import aslibrary.multithread.ThreadJobber;
+
 /**
  * Created by gravit on 27.06.17.
  */
@@ -27,6 +30,30 @@ public class CodeExecutionTime implements java.lang.AutoCloseable {
             mainTime += stop - start;
         }
         return mainTime / replay;
+    }
+
+    public static double getMultiThread(Runnable runnable, ThreadJobber jobber) {
+        long start = 0;
+        try {
+            jobber.fill(runnable);
+            start = System.currentTimeMillis();
+            jobber.run();
+            jobber.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        long stop = System.currentTimeMillis();
+        return stop - start;
+    }
+
+    public static double getMultiThread(Runnable runnable, int threads) {
+        ThreadJobber jobber = null;
+        try {
+            jobber = new ThreadJobber(threads);
+        } catch (LogicException e) {
+            e.printStackTrace();
+        }
+        return getMultiThread(runnable, jobber);
     }
 
     @Override
