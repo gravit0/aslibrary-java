@@ -19,6 +19,11 @@ public class ThreadJobber {
             v.runnable = runs;
         }
     }
+    public void fillNull() {
+        for (JobThread v : threads) {
+            v.runnable = null;
+        }
+    }
 
     public void run() {
         for (JobThread v : threads) {

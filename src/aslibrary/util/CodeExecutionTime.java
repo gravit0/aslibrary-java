@@ -55,6 +55,34 @@ public class CodeExecutionTime implements java.lang.AutoCloseable {
         }
         return getMultiThread(runnable, jobber);
     }
+    public static double getMultiThreadAverage(Runnable runnable,long replay, ThreadJobber jobber) {
+        Runnable realRunnable = () -> {
+            for (long i=0;i<replay;i++)
+            {
+                runnable.run();
+            }
+        };
+        long start = 0;
+        try {
+            jobber.fill(realRunnable);
+            start = System.currentTimeMillis();
+            jobber.run();
+            jobber.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        long stop = System.currentTimeMillis();
+        return (stop - start ) / replay;
+    }
+    public static double getMultiThreadAverage(Runnable runnable,long replay, int threads) {
+        ThreadJobber jobber = null;
+        try {
+            jobber = new ThreadJobber(threads);
+        } catch (LogicException e) {
+            e.printStackTrace();
+        }
+        return getMultiThreadAverage(runnable,replay, jobber);
+    }
 
     @Override
     public void close() {
