@@ -5,7 +5,7 @@
  */
 package aslibrary.formats;
 
-import aslibrary.util.BinaryHelper;
+import aslibrary.util.binary.BinaryHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

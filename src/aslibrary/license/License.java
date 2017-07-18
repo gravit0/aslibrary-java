@@ -9,7 +9,7 @@ package aslibrary.license;
 
 import aslibrary.crypto.aes.AESCrypt;
 import aslibrary.formats.FastBinaryFormatter4;
-import aslibrary.util.BinaryHelper;
+import aslibrary.util.binary.BinaryHelper;
 
 /**
  * @author gravit

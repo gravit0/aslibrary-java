@@ -2,6 +2,7 @@ package aslibrary.logs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Date;
  */
 public class ConsoleLogger implements LogsInterface {
     int length;
-    SimpleDateFormat dateFormat;
+    SimpleDateFormat dateFormat = null;
     public ConsoleLogger()
     {
         dateFormat = new SimpleDateFormat("dd.MM.yyyy kk:mm:ss");
@@ -20,6 +21,12 @@ public class ConsoleLogger implements LogsInterface {
     {
         dateFormat = fmt;
     }
+
+    @Override
+    public OutputStream getStream() {
+        return System.out;
+    }
+
     @Override
     public void add(byte priority, byte[] module, byte[] log) {
         ByteArrayOutputStream s = new ByteArrayOutputStream(module.length + log.length + 16);
