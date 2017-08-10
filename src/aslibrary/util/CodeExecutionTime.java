@@ -1,6 +1,5 @@
 package aslibrary.util;
 
-import aslibrary.LogicException;
 import aslibrary.multithread.ThreadJobber;
 
 /**
@@ -47,12 +46,8 @@ public class CodeExecutionTime implements java.lang.AutoCloseable {
     }
 
     public static double getMultiThread(Runnable runnable, int threads) {
-        ThreadJobber jobber = null;
-        try {
-            jobber = new ThreadJobber(threads);
-        } catch (LogicException e) {
-            e.printStackTrace();
-        }
+        ThreadJobber jobber;
+        jobber = new ThreadJobber(threads);
         return getMultiThread(runnable, jobber);
     }
     public static double getMultiThreadAverage(Runnable runnable,long replay, ThreadJobber jobber) {
@@ -75,12 +70,8 @@ public class CodeExecutionTime implements java.lang.AutoCloseable {
         return (stop - start ) / replay;
     }
     public static double getMultiThreadAverage(Runnable runnable,long replay, int threads) {
-        ThreadJobber jobber = null;
-        try {
-            jobber = new ThreadJobber(threads);
-        } catch (LogicException e) {
-            e.printStackTrace();
-        }
+        ThreadJobber jobber;
+        jobber = new ThreadJobber(threads);
         return getMultiThreadAverage(runnable,replay, jobber);
     }
 

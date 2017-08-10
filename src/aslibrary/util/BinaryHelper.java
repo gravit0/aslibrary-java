@@ -59,9 +59,7 @@ public class BinaryHelper {
      */
     public static void concat(byte[] arr1, byte[] arr2, int start) {
         int size = arr2.length;
-        for (int i = start; i < size; i++) {
-            arr1[i] = arr2[i - start];
-        }
+        System.arraycopy(arr2, 0, arr1, start, size);
     }
 
     /**

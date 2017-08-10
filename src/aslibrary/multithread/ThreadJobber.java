@@ -6,10 +6,9 @@ import aslibrary.LogicException;
  * Created by gravit on 06.07.17.
  */
 public class ThreadJobber {
-    public JobThread[] threads;
-    public Runnable run;
+    protected JobThread[] threads;
 
-    public ThreadJobber(int amount) throws LogicException {
+    public ThreadJobber(int amount) {
         if (amount <= 0) throw new LogicException("Amount <= 0");
         threads = new JobThread[amount];
     }
@@ -19,10 +18,9 @@ public class ThreadJobber {
             v.runnable = runs;
         }
     }
-    public void fillNull() {
-        for (JobThread v : threads) {
-            v.runnable = null;
-        }
+
+    public void clear() {
+        fill(null);
     }
 
     public void run() {
@@ -39,7 +37,7 @@ public class ThreadJobber {
 }
 
 class JobThread extends Thread {
-    public Runnable runnable;
+    protected Runnable runnable;
 
     @Override
     public void run() {

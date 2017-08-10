@@ -28,13 +28,13 @@ public class FastBinaryFormatter4 {
      * @throws IOException
      */
     public static byte[] encode(byte[][] data) throws IOException {
-        int datalen = 0;
+        int lengthData = 0;
         for (byte[] v : data) {
-            datalen += v.length;
+            lengthData += v.length;
         }
-        ByteArrayOutputStream out = new ByteArrayOutputStream(1 + datalen + data.length);
+        ByteArrayOutputStream out = new ByteArrayOutputStream(1 + lengthData + data.length);
         out.write(BinaryHelper.IntToByteArray(data.length * BYTES));
-        ByteArrayOutputStream bytesOut = new ByteArrayOutputStream(datalen);
+        ByteArrayOutputStream bytesOut = new ByteArrayOutputStream(lengthData);
         for (byte[] v : data) {
             out.write(BinaryHelper.IntToByteArray(v.length));
             try {
@@ -60,9 +60,9 @@ public class FastBinaryFormatter4 {
         if (orig.length < BYTES) throw new IllegalArgumentException("length < 4");
         int headSize = BinaryHelper.byteArrayToInt(orig);
         int arrIterator = 0;
-        if (headSize <= 0) throw new IllegalArgumentException("head is empry | head invalid");
+        if (headSize <= 0) throw new IllegalArgumentException("head is empty | head invalid");
         int bytes_starter = headSize + BYTES;
-        if (orig.length - bytes_starter <= 0) throw new IllegalArgumentException("data is empry");
+        if (orig.length - bytes_starter <= 0) throw new IllegalArgumentException("data is empty");
         int elm_col = headSize / BYTES;
         byte[][] arr = new byte[elm_col][];
         int bytesIterator = bytes_starter;

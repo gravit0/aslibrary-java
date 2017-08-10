@@ -2,14 +2,13 @@ package aslibrary.logs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Created by gravit on 27.06.17.
  */
-public class ConsoleLogger implements LogsInterface {
+public class ConsoleLogger extends DefaultLogger {
     int length;
     SimpleDateFormat dateFormat;
     public ConsoleLogger()

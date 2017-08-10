@@ -5,6 +5,7 @@
  */
 package aslibrary.formats;
 
+import aslibrary.FormatException;
 import aslibrary.util.BinaryHelper;
 
 import java.io.ByteArrayOutputStream;
@@ -14,31 +15,23 @@ import java.util.Arrays;
 /**
  * @author gravit
  */
-@SuppressWarnings("JavaDoc")
 public class FastBinaryFormatter1 {
 
-    /**
-     *
-     */
     public static final byte BYTES = 1;
 
-    /**
-     * @param data
-     * @return
-     * @throws IOException
-     */
-    public static byte[] encode(byte[][] data) throws IllegalArgumentException {
-        if (data.length > 255) throw new IllegalArgumentException("length > 255");
-        int datalen = 0;
+
+    public static byte[] encode(byte[][] data) throws FormatException {
+        if (data.length > 255) throw new FormatException("length > 255", "FastBinary");
+        int lengthData = 0;
         for (byte[] v : data) {
-            datalen += v.length;
+            lengthData += v.length;
         }
-        ByteArrayOutputStream out = new ByteArrayOutputStream(1 + datalen + data.length);
+        ByteArrayOutputStream out = new ByteArrayOutputStream(1 + lengthData + data.length);
         out.write(data.length);
-        byte[] bytes = new byte[datalen + 1];
+        byte[] bytes = new byte[lengthData + 1];
         int bytesIterator = 0;
         for (byte[] v : data) {
-            if (v.length > 255) throw new IllegalArgumentException("length > 255");
+            if (v.length > 255) throw new FormatException("data length > 255", "FastBinary");
             out.write(v.length);
             BinaryHelper.concat(bytes, v, bytesIterator);
             bytesIterator += v.length;
@@ -51,18 +44,14 @@ public class FastBinaryFormatter1 {
         return out.toByteArray();
     }
 
-    /**
-     * @param orig
-     * @return
-     */
-    public static byte[][] decode(byte[] orig) throws IllegalArgumentException {
-        if (orig.length < BYTES) throw new IllegalArgumentException("length < 1");
+    public static byte[][] decode(byte[] orig) throws FormatException {
+        if (orig.length < BYTES) throw new FormatException("length < 1", "FastBinary");
         int headSize = Byte.toUnsignedInt(orig[0]);
         byte[][] arr = new byte[headSize][];
         int arrIterator = 0;
-        if (headSize <= 0) throw new IllegalArgumentException("head is empty | head invalid");
+        if (headSize <= 0) throw new FormatException("head is empty | head invalid", "FastBinary");
         int bytes_starter = headSize + BYTES;
-        if (orig.length - bytes_starter <= 0) throw new IllegalArgumentException("data is empty");
+        if (orig.length - bytes_starter <= 0) throw new FormatException("data is empty", "FastBinary");
         int elm_col = headSize / BYTES;
         int bytesIterator = bytes_starter;
         for (int i = 0; i < elm_col; i++) {

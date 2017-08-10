@@ -72,7 +72,7 @@ public class License {
     public void printLicense() {
         System.out.println("License:" + lictext);
         System.out.println("Name:" + name);
-        String lictype = null;
+        String lictype;
         switch ((int) type) {
             case License.TYPE_PERSONAL: {
                 lictype = "Personal";

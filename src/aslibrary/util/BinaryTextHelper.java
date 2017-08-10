@@ -15,10 +15,6 @@ public class BinaryTextHelper {
 
     public static final byte[] NUMBERS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
-    /**
-     * @param val
-     * @return
-     */
     public static byte[] IntToBytes(int val) {
         if (val == Integer.MIN_VALUE) {
             return new byte[]{'-', '2', '1', '4', '7', '4', '8', '3', '6', '4', '8'};
@@ -40,10 +36,7 @@ public class BinaryTextHelper {
         return BinaryHelper.invert(out.toByteArray());
     }
 
-    /**
-     * @param hexString
-     * @return
-     */
+
     public static byte[] HexToByte(byte[] hexString) {
         int len = hexString.length / 2;
         byte[] result = new byte[len];
@@ -62,10 +55,7 @@ public class BinaryTextHelper {
         return result;
     }
 
-    /**
-     * @param hexString
-     * @return
-     */
+
     public static byte[] HexToByte(String hexString) {
         int len = hexString.length() / 2;
         byte[] result = new byte[len];
@@ -75,10 +65,7 @@ public class BinaryTextHelper {
         return result;
     }
 
-    /**
-     * @param buf
-     * @return
-     */
+
     public static byte[] ByteToHex(byte[] buf) {
         if (buf == null) throw new NullPointerException();
         ByteArrayOutputStream result = new ByteArrayOutputStream(2 * buf.length);
