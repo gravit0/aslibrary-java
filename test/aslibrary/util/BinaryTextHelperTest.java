@@ -6,6 +6,8 @@
 package aslibrary.util;
 
 import java.util.Arrays;
+
+import aslibrary.util.binary.BinaryTextHelper;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

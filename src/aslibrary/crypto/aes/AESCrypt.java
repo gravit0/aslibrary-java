@@ -1,6 +1,6 @@
 package aslibrary.crypto.aes;
 
-import aslibrary.util.BinaryTextHelper;
+import aslibrary.util.binary.BinaryTextHelper;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

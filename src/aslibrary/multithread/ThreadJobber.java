@@ -25,7 +25,8 @@ public class ThreadJobber {
 
     public void run() {
         for (JobThread v : threads) {
-            v.run();
+            //v.run();
+            v.start();
         }
     }
 

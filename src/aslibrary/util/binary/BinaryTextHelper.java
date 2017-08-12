@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aslibrary.util;
+package aslibrary.util.binary;
+
+import aslibrary.util.binary.BinaryHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
