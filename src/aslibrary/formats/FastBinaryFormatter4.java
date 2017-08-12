@@ -32,7 +32,7 @@ public class FastBinaryFormatter4 {
         for (byte[] v : data) {
             lengthData += v.length;
         }
-        ByteArrayOutputStream out = new ByteArrayOutputStream(1 + lengthData + data.length);
+        ByteArrayOutputStream out = new ByteArrayOutputStream(BYTES + lengthData + data.length);
         out.write(BinaryHelper.IntToByteArray(data.length * BYTES));
         ByteArrayOutputStream bytesOut = new ByteArrayOutputStream(lengthData);
         for (byte[] v : data) {

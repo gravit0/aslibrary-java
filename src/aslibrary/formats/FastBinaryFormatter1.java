@@ -26,7 +26,7 @@ public class FastBinaryFormatter1 {
         for (byte[] v : data) {
             lengthData += v.length;
         }
-        ByteArrayOutputStream out = new ByteArrayOutputStream(1 + lengthData + data.length);
+        ByteArrayOutputStream out = new ByteArrayOutputStream(BYTES + lengthData + data.length);
         out.write(data.length);
         byte[] bytes = new byte[lengthData + 1];
         int bytesIterator = 0;
